@@ -61,6 +61,30 @@ function loadData() {
     } else {
         appState.data = JSON.parse(JSON.stringify(DEFAULT_DATA));
     }
+
+    // Auto-generate Mesocycle 1 if no mesocycles exist
+    if (appState.data.macrocycle.mesocycles.length === 0) {
+        initializeMesocycle1();
+    }
+}
+
+function initializeMesocycle1() {
+    // Set default dates: Start on Monday, January 6, 2026 (4 weeks)
+    const fromDate = '2026-01-06';
+    const toDate = '2026-02-02'; // 4 weeks later (Monday to Monday)
+
+    const mesocycle1 = {
+        id: 'meso-1',
+        name: 'Mesocycle 1',
+        fromDate: fromDate,
+        toDate: toDate,
+        template: 'mesocycle-1',
+        schedule: generateMesocycle1Schedule(fromDate, toDate),
+        logs: {}
+    };
+
+    appState.data.macrocycle.mesocycles.push(mesocycle1);
+    saveData();
 }
 
 function saveData() {
