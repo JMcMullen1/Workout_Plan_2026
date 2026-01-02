@@ -69,9 +69,9 @@ function loadData() {
 }
 
 function initializeMesocycle1() {
-    // Set default dates: Start on Monday, January 6, 2026 (4 weeks)
-    const fromDate = '2026-01-06';
-    const toDate = '2026-02-02'; // 4 weeks later (Monday to Monday)
+    // Set default dates: Start on Monday, January 5, 2026 (4 weeks)
+    const fromDate = '2026-01-05';
+    const toDate = '2026-02-01'; // 4 weeks later (Monday to Sunday)
 
     const mesocycle1 = {
         id: 'meso-1',
