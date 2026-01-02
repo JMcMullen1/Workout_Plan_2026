@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background: #f5f5f5;
+        }
+        .instructions {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1a1a2e; }
+        h2 { color: #e94560; margin-top: 2rem; }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        .canvas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            height: auto;
+        }
+        .canvas-wrapper {
+            text-align: center;
+        }
+        .canvas-wrapper p {
+            margin: 0.5rem 0 0;
+            font-size: 0.875rem;
+            color: #666;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background: #d63850;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h1>🏋️ Training PWA Icon Generator</h1>
+
+        <h2>Option 1: Generate Simple Icons (Quick)</h2>
+        <p>Click the button below to generate simple gradient icons with emojis for all required sizes:</p>
+        <button onclick="generateAllIcons()">Generate All Icons</button>
+        <div class="canvas-container" id="canvas-container"></div>
+
+        <h2>Option 2: Use a Design Tool (Recommended)</h2>
+        <p>For professional-looking icons, use one of these free tools:</p>
+        <ul>
+            <li><strong>Canva</strong> (canva.com) - Easy drag-and-drop interface
+                <ol>
+                    <li>Create a 512x512px design</li>
+                    <li>Add a gradient background (#1a1a2e to #e94560)</li>
+                    <li>Add the emoji 🏋️ or text "T26"</li>
+                    <li>Download as PNG</li>
+                    <li>Use an online tool like <code>iloveimg.com</code> to resize to all needed sizes</li>
+                </ol>
+            </li>
+            <li><strong>Figma</strong> (figma.com) - More advanced design tool (free tier available)</li>
+            <li><strong>PWA Asset Generator</strong> - Use <code>npx pwa-asset-generator</code> CLI tool</li>
+        </ul>
+
+        <h2>Option 3: Use the Command Line (requires ImageMagick)</h2>
+        <p>If you have ImageMagick installed, you can generate icons from the terminal:</p>
+        <pre><code>cd icons
+
+# Create a simple icon (512x512)
+convert -size 512x512 gradient:#1a1a2e-#e94560 \
+        -gravity center -pointsize 200 -fill white \
+        -annotate +0+0 "T26" icon-512x512.png
+
+# Then resize to other sizes
+for size in 72 96 128 144 152 192 384; do
+  convert icon-512x512.png -resize ${size}x${size} icon-${size}x${size}.png
+done</code></pre>
+
+        <h2>Required Icon Sizes</h2>
+        <p>Your PWA needs these icon sizes in the <code>icons/</code> directory:</p>
+        <ul>
+            <li>icon-72x72.png</li>
+            <li>icon-96x96.png</li>
+            <li>icon-128x128.png</li>
+            <li>icon-144x144.png</li>
+            <li>icon-152x152.png</li>
+            <li>icon-192x192.png</li>
+            <li>icon-384x384.png</li>
+            <li>icon-512x512.png</li>
+        </ul>
+
+        <h2>Design Guidelines</h2>
+        <ul>
+            <li><strong>Keep it simple</strong> - Icons should be recognizable at small sizes</li>
+            <li><strong>Use high contrast</strong> - Text/symbols should stand out from background</li>
+            <li><strong>Safe zone</strong> - Keep important elements 10% away from edges</li>
+            <li><strong>Test on device</strong> - View your icon on an actual phone home screen</li>
+        </ul>
+    </div>
+
+    <script>
+        function generateAllIcons() {
+            const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+            const container = document.getElementById('canvas-container');
+            container.innerHTML = '';
+
+            sizes.forEach(size => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'canvas-wrapper';
+
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                // Gradient background
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, '#1a1a2e');
+                gradient.addColorStop(1, '#e94560');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
+
+                // Add emoji or text
+                const fontSize = Math.floor(size * 0.5);
+                ctx.font = `${fontSize}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = 'white';
+
+                // Use emoji for larger sizes, text for smaller
+                const text = size >= 144 ? '🏋️' : 'T26';
+                ctx.fillText(text, size / 2, size / 2);
+
+                wrapper.appendChild(canvas);
+
+                const label = document.createElement('p');
+                label.textContent = `${size}x${size}`;
+                wrapper.appendChild(label);
+
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.style.padding = '0.5rem 1rem';
+                downloadBtn.style.fontSize = '0.875rem';
+                downloadBtn.onclick = () => downloadCanvas(canvas, `icon-${size}x${size}.png`);
+                wrapper.appendChild(downloadBtn);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="2026 Training Macrocycle - Progressive Web App">
+    <title>Training 2026</title>
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+
+        <!-- Macrocycle View (default) -->
+        <div id="macrocycle-view" class="view active">
+            <header class="app-header">
+                <h1>Macrocycle 2026</h1>
+                <div class="header-actions">
+                    <button id="export-btn" class="btn-icon" title="Export Data">📥</button>
+                    <button id="import-btn" class="btn-icon" title="Import Data">📤</button>
+                </div>
+            </header>
+
+            <div class="mesocycle-list" id="mesocycle-list">
+                <!-- Mesocycles will be rendered here -->
+            </div>
+
+            <button id="add-mesocycle-btn" class="btn-primary btn-full">+ Add Mesocycle</button>
+        </div>
+
+        <!-- Mesocycle Detail View -->
+        <div id="mesocycle-detail-view" class="view">
+            <header class="app-header">
+                <button id="back-btn" class="btn-icon">←</button>
+                <h1 id="mesocycle-title">Mesocycle</h1>
+                <button id="edit-mesocycle-btn" class="btn-icon">✎</button>
+            </header>
+
+            <!-- Goal Filter Chips -->
+            <div class="filter-chips" id="filter-chips">
+                <button class="chip active" data-goal="all">All</button>
+                <button class="chip goal-1" data-goal="1">🏀 Dunk</button>
+                <button class="chip goal-2" data-goal="2">💪 Murph</button>
+                <button class="chip goal-3" data-goal="3">🏃 Hyrox</button>
+                <button class="chip goal-4" data-goal="4">🥋 BJJ</button>
+            </div>
+
+            <!-- Week Tabs -->
+            <div class="week-tabs" id="week-tabs">
+                <!-- Week tabs will be rendered here -->
+            </div>
+
+            <!-- Schedule Grid -->
+            <div class="schedule-grid" id="schedule-grid">
+                <!-- Schedule cards will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Session Detail Modal -->
+        <div id="session-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="session-modal-title">Session</h2>
+                    <button class="btn-close" id="close-session-modal">×</button>
+                </div>
+                <div class="modal-body" id="session-modal-body">
+                    <!-- Session details will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mesocycle Editor Modal -->
+        <div id="mesocycle-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="mesocycle-modal-title">New Mesocycle</h2>
+                    <button class="btn-close" id="close-mesocycle-modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="mesocycle-form">
+                        <div class="form-group">
+                            <label for="meso-name">Name</label>
+                            <input type="text" id="meso-name" required placeholder="Mesocycle 1">
+                        </div>
+                        <div class="form-group">
+                            <label for="meso-from">From Date</label>
+                            <input type="date" id="meso-from" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="meso-to">To Date</label>
+                            <input type="date" id="meso-to" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="meso-template">Template</label>
+                            <select id="meso-template">
+                                <option value="mesocycle-1">Mesocycle 1 (4-week GTG + Hyrox)</option>
+                                <option value="blank">Blank (Custom)</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="cancel-mesocycle" class="btn-secondary">Cancel</button>
+                            <button type="submit" class="btn-primary">Save</button>
+                        </div>
+                        <button type="button" id="delete-mesocycle" class="btn-danger" style="display:none;">Delete Mesocycle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-file-input" accept=".json" style="display:none;">
+
+    <script src="app.js"></script>
+</body>
+</html>
