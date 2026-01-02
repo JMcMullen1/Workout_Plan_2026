@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dumbbellGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e94560;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="512" height="512" rx="110" fill="url(#bgGradient)"/>
+
+  <!-- Dumbbell Icon -->
+  <g transform="translate(256, 256)">
+    <!-- Left weight plate -->
+    <rect x="-180" y="-70" width="50" height="140" rx="8" fill="url(#dumbbellGradient)"/>
+    <rect x="-140" y="-60" width="25" height="120" rx="5" fill="url(#dumbbellGradient)" opacity="0.9"/>
+
+    <!-- Center bar -->
+    <rect x="-115" y="-18" width="230" height="36" rx="18" fill="url(#dumbbellGradient)"/>
+
+    <!-- Right weight plate -->
+    <rect x="115" y="-60" width="25" height="120" rx="5" fill="url(#dumbbellGradient)" opacity="0.9"/>
+    <rect x="130" y="-70" width="50" height="140" rx="8" fill="url(#dumbbellGradient)"/>
+
+    <!-- Highlight details for depth -->
+    <rect x="-175" y="-65" width="8" height="130" rx="4" fill="white" opacity="0.3"/>
+    <rect x="135" y="-65" width="8" height="130" rx="4" fill="white" opacity="0.3"/>
+    <ellipse cx="0" cy="0" rx="100" ry="16" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Subtitle text -->
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="42" font-weight="bold"
+        fill="white" text-anchor="middle" opacity="0.9">2026</text>
+</svg>
