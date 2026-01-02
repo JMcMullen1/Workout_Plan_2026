@@ -346,7 +346,7 @@ function renderSessionCard(session) {
     if (session.type === 'gtg') {
         const completedSets = session.movements.reduce((sum, m) =>
             sum + m.completed.filter(c => c).length, 0);
-        const totalSets = session.movements.length * 5;
+        const totalSets = session.movements.reduce((sum, m) => sum + m.completed.length, 0);
         preview = `
             <div class="session-meta">${session.movements.map(m => `${m.name}: ${m.target} reps`).join(' • ')}</div>
             <div class="gtg-sets">
@@ -444,7 +444,7 @@ function openSessionModal(sessionId) {
                     </div>
                     <div style="margin-top: 0.75rem;">
                         <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-                            Sets completed: ${completedSets}/5
+                            Sets completed: ${completedSets}/${movement.completed.length}
                         </div>
                         <div class="gtg-sets">
                             ${movement.completed.map((checked, sIdx) => `
@@ -825,12 +825,12 @@ function generateMesocycle1Schedule(fromDateStr, toDateStr) {
                         {
                             name: 'Press-ups',
                             target: 10 + (pressUpCount * 2),
-                            completed: [false, false, false, false, false]
+                            completed: [false, false, false]
                         },
                         {
                             name: 'Chin-ups',
                             target: 1 + chinUpCount,
-                            completed: [false, false, false, false, false]
+                            completed: [false, false]
                         }
                     ];
                     pressUpCount++;
@@ -841,12 +841,12 @@ function generateMesocycle1Schedule(fromDateStr, toDateStr) {
                         {
                             name: 'Dips',
                             target: 1 + dipsCount,
-                            completed: [false, false, false, false, false]
+                            completed: [false, false, false]
                         },
                         {
                             name: 'Bent-over Rows (24kg, each side)',
                             target: 6 + (rowsCount * 2),
-                            completed: [false, false, false, false, false]
+                            completed: [false, false]
                         }
                     ];
                     dipsCount++;
